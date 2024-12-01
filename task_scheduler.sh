@@ -10,12 +10,10 @@ NC='\033[0m'  # No Color
 
 TASK_FILE="tasks.txt"
 
-# Function to get the current date
 get_current_date() {
     echo "$(date +%Y)-$(date +%m)-$(date +%d)"
 }
 
-# Function to add a new task
 add_task() {
     echo "Enter task description:"
     read description
@@ -42,32 +40,29 @@ add_task() {
     echo "Task added!"
 }
 
-# Function to view all tasks
 view_tasks() {
     if [ ! -f "$TASK_FILE" ] || [ ! -s "$TASK_FILE" ]; then
         echo "No tasks available."
     else
         echo -e "\n${PURPLE}==== SHOWING ALL TASKS ====${NC}\n"
         echo -e "${BLUE}ID${NC} | ${GREEN}Description${NC} | ${YELLOW}Deadline${NC} | ${RED}Status${NC}"
-        cat "$TASK_FILE"
+        cat "$TASK_FILE" # cat: outputs the contents of a text file
         echo -e "\n${RED}<-${NC} Press ENTER key to go back"
         read -p ""
     fi
 }
 
-# Function to remove a task
 remove_task() {
     echo "Enter task ID to remove:"
     read id
-    sed -i "/^$id |/d" "$TASK_FILE"
+    sed -i "/^$id |/d" "$TASK_FILE" # sed: manipulates the contents of a file
     echo "Task removed!"
 }
 
-# Function to mark a task as done
 mark_done() {
     echo "Enter task ID to mark as done:"
     read id
-    sed -i "/^$id |/s/❌/✅/" "$TASK_FILE"
+    sed -i "/^$id |/s/❌/✅/" "$TASK_FILE" # sed: manipulates the contents of a file
     echo "Task marked as done!"
 }
 
